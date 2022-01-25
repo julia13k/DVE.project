@@ -5,20 +5,23 @@ import com.geekhub.mylogger.*;
 import com.geekhub.services.CourseService;
 
 public class CourseMenu {
-    CourseService courseService = new CourseService();
-    ArgumentsScanner scanner = new ArgumentsScanner();
-    MyLogger logger = new MyLogger();
+    private final CourseService courseService;
+    private final ArgumentsScanner scanner;
+    private final MyLogger logger;
     int option;
 
-    public CourseMenu(CourseService courseService) {
+    public CourseMenu(CourseService courseService, ArgumentsScanner scanner, MyLogger logger) {
         this.courseService = courseService;
+        this.scanner = scanner;
+        this.logger = logger;
     }
 
+    /** Main method for implementing course menu */
     public void startCourseMenu() {
         printMenu();
         startWork();
     }
-
+    /** Prints all options of a course menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to course menu,")
             .append("please, press ENTER to continue"));
@@ -31,7 +34,7 @@ public class CourseMenu {
             .append("4 - Get a course\n")
             .append("5 - Exit\n"));
     }
-
+    /** The implementation of a course menu options according to arguments received from scanner*/
     private void startWork() {
         System.out.print(new StringBuilder("You are using course menu\n")
             .append("Please enter the number you have chosen:\n"));
@@ -70,6 +73,5 @@ public class CourseMenu {
                     break;
             }
         }
-
     }
 }

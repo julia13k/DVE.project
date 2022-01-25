@@ -3,15 +3,20 @@ package api.console;
 import com.geekhub.mylogger.MyLogger;
 
 public class MyLoggerMenu {
-    ArgumentsScanner scanner = new ArgumentsScanner();
-    MyLogger logger = new MyLogger();
+    private final ArgumentsScanner scanner;
+    private final MyLogger logger;
     int option;
 
+    public MyLoggerMenu(ArgumentsScanner scanner, MyLogger logger) {
+        this.scanner = scanner;
+        this.logger = logger;
+    }
+    /** Main method for implementing logger menu */
     public void startLoggerMenu() {
         printMenu();
         startWork();
     }
-
+    /** Prints all options of a logger menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to Logger menu,")
             .append("please, press ENTER to continue\n"));
@@ -23,7 +28,7 @@ public class MyLoggerMenu {
             .append("3 - Select logs by status\n")
             .append("4 - Exit\n"));
     }
-
+    /** The implementation of a logger menu options according to arguments received from scanner*/
     private void startWork() {
         logger.readFromFile(logger.getFile());
         System.out.print(new StringBuilder("You are using Logger menu\n")

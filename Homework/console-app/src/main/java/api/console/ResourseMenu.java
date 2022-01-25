@@ -5,20 +5,23 @@ import com.geekhub.mylogger.*;
 import com.geekhub.services.ResourseService;
 
 public class ResourseMenu {
-    ResourseService resourseService = new ResourseService();
-    ArgumentsScanner scanner = new ArgumentsScanner();
-    MyLogger logger = new MyLogger();
+    private final ResourseService resourseService;
+    private final ArgumentsScanner scanner;
+    private final MyLogger logger;
     int option;
 
-    public ResourseMenu(ResourseService resourseService) {
+    public ResourseMenu(ResourseService resourseService, ArgumentsScanner scanner, MyLogger logger) {
         this.resourseService = resourseService;
+        this.scanner = scanner;
+        this.logger = logger;
     }
 
+    /** Main method for implementing resource menu */
     public void startResourseMenu() {
         printMenu();
         startWork();
     }
-
+    /** Prints all options of a resource menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to resourse menu,")
             .append("please, press ENTER to continue"));
@@ -31,7 +34,7 @@ public class ResourseMenu {
             .append("4 - Get a resourse\n")
             .append("5 - Exit\n"));
     }
-
+    /** The implementation of a resource menu options according to arguments received from scanner*/
     private void startWork() {
         System.out.print(new StringBuilder("You are using additional materials menu\n")
             .append("Please enter the number you have chosen:\n"));

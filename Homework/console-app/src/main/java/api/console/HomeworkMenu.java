@@ -5,20 +5,23 @@ import com.geekhub.mylogger.*;
 import com.geekhub.services.HomeworkService;
 
 public class HomeworkMenu {
-    HomeworkService homeworkService = new HomeworkService();
-    ArgumentsScanner scanner = new ArgumentsScanner();
-    MyLogger logger = new MyLogger();
+    private final HomeworkService homeworkService;
+    private final ArgumentsScanner scanner;
+    private final MyLogger logger;
     int option;
 
-    public HomeworkMenu(HomeworkService homeworkService) {
+    public HomeworkMenu(HomeworkService homeworkService, ArgumentsScanner scanner, MyLogger logger) {
         this.homeworkService = homeworkService;
+        this.scanner = scanner;
+        this.logger = logger;
     }
 
+    /** Main method for implementing homework menu */
     public void startHomeworkMenu() {
         printMenu();
         startWork();
     }
-
+    /** Prints all options of a homework menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to homework menu,")
             .append("please, press ENTER to continue\n"));
@@ -31,7 +34,7 @@ public class HomeworkMenu {
             .append("4 - Get a homework\n")
             .append("5 - Exit\n"));
     }
-
+    /** The implementation of a homework menu options according to arguments received from scanner*/
     private void startWork() {
         System.out.print(new StringBuilder("You are using homework menu\n")
             .append("Please enter the number you have chosen:\n"));

@@ -69,13 +69,14 @@ public class MyLogger {
         this.file = file;
     }
 
+    /** Gets log`s creation time */
     public String getDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss:SS");
         LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC+2"));
         ZonedDateTime zonedDateTime = ZonedDateTime.of(now, ZoneId.of("UTC+2"));
         return zonedDateTime.format(formatter);
     }
-
+    /** Logs an exception */
     public void log(LoggerType level, Exception e, String message) {
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(getDateTime());
         if (level == LoggerType.ERROR) {
@@ -84,14 +85,14 @@ public class MyLogger {
             writeToFile(file, log);
         }
     }
-
+    /** Logs a message */
     public void log(LoggerType level, Object o, String message) {
         String className = o.getClass().getSimpleName();
         String s = "[{" + level + "}] {" + className + "}: {" + message + "}: {" + getDateTime() + "}";
         MyLogger log = new MyLogger(level, s, zonedDateTime);
         writeToFile(file, log);
     }
-
+    /** Writes a log to file */
     public void writeToFile(File file, MyLogger log){
         if(!file.exists()) {createFile();}
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -102,11 +103,10 @@ public class MyLogger {
             ex.printStackTrace();
         }
     }
-
+    /** Reads a log(logs) from a file */
     public void readFromFile(File file){
         try (BufferedReader reader = new BufferedReader(new FileReader(file));){
             String line;
-            StringBuilder stringBuilder = new StringBuilder();
             while ((line = reader.readLine()) != null) {
                 String[] strings = line.split(" ");
                 LoggerType type = LoggerType.valueOf(strings[0]);
@@ -120,16 +120,16 @@ public class MyLogger {
             ex.printStackTrace();
         }
     }
-
+    /** Creates a file for logs */
     public File createFile(){
         file = new File("src/main/java/com.geekhub/myLogger/logs.txt");
         return file;
     }
-
+    /** Sorts logs from a file by their creation date */
     public List<MyLogger> sortLogsByDate() {
         return logs.stream().sorted(Comparator.comparing(MyLogger::getZonedDateTime)).collect(Collectors.toList());
     }
-
+    /** Sorts logs from a file by their status */
     public List<MyLogger> selectLogsByStatus() {
         return logs.stream().sorted(Comparator.comparing(MyLogger::getLevel)).collect(Collectors.toList());
     }

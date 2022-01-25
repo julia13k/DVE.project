@@ -9,31 +9,37 @@ import com.geekhub.sources.ResourseSource;
 
 public class LectionMenu {
 
-    ResourseSource resourseSource = new ResourseSource();
-    HomeworkSource homeworkSource = new HomeworkSource();
-    LectionService lectionService = new LectionService();
-    ResourseService resourseService = new ResourseService();
-    ArgumentsScanner scanner = new ArgumentsScanner();
-    MyLogger logger = new MyLogger();
+    private final ResourseSource resourseSource;
+    private final HomeworkSource homeworkSource;
+    private final LectionService lectionService;
+    private final ResourseService resourseService;
+    private final ArgumentsScanner scanner;
+    private final MyLogger logger;
     int option;
 
-    public LectionMenu(LectionService lectionService) {
+    public LectionMenu(ResourseSource resourseSource, HomeworkSource homeworkSource, LectionService lectionService, ResourseService resourseService, ArgumentsScanner scanner, MyLogger logger) {
+        this.resourseSource = resourseSource;
+        this.homeworkSource = homeworkSource;
         this.lectionService = lectionService;
+        this.resourseService = resourseService;
+        this.scanner = scanner;
+        this.logger = logger;
     }
 
+    /** Main method for implementing lecture menu */
     public void startLectionMenu() {
         printMenu();
         startWork();
 
     }
-
+    /** Prints all options of a lecture menu */
     private void printMenu() {
-        System.out.print(new StringBuilder("Welcome to lection menu,")
+        System.out.print(new StringBuilder("Welcome to a lecture menu,")
             .append("please, press ENTER to continue"));
         scanner.getLine();
 
         System.out.println(new StringBuilder
-            ("1 - Show all lections(number and name)\n")
+            ("1 - Show all lectures(number and name)\n")
             .append("2 - Add a lecture\n")
             .append("3 - Delete a lecture\n")
             .append("4 - Get a lecture\n")
@@ -44,9 +50,9 @@ public class LectionMenu {
             .append("9 - Show homework by a lecture\n")
             .append("10 - Exit\n"));
     }
-
+    /** The implementation of a lecture menu options according to arguments received from scanner*/
     private void startWork() {
-        System.out.print(new StringBuilder("You are using lections menu\n")
+        System.out.print(new StringBuilder("You are using lectures menu\n")
             .append("Please enter the number you have chosen:\n"));
         option = scanner.getNumber();
         while (option != 10) {

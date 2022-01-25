@@ -9,6 +9,7 @@ public class PersonService {
     private final PersonSourse personSourse = PersonSourse.getInstance();
     MyLogger logger = new MyLogger();
 
+    /** Creates a new person */
     public Person createPerson(String firstName, String lastName, String contacts, String email, String role) {
             if (firstName.isBlank() || lastName.isBlank() || contacts.isBlank() || email.isBlank() || role.isBlank()) {
                 throw new ValidationException("You have to enter the arguments!");
@@ -22,7 +23,7 @@ public class PersonService {
         logger.log(LoggerType.INFO, PersonService.class, "You have added a new person");
         return person;
     }
-
+    /** Gets new person by index from sources  */
     public void getPerson(int personIndex) {
         try {
             System.out.println(personSourse.get(personIndex));
@@ -30,7 +31,7 @@ public class PersonService {
             logger.log(LoggerType.ERROR, e.getClass(), "Index out of bounds exception");
         }
     }
-
+    /** Deletes a person by index */
     public void deletePerson(int personIndex) {
         try {
             personSourse.delete(personIndex);
@@ -39,7 +40,7 @@ public class PersonService {
         }
         logger.log(LoggerType.WARNING, PersonService.class, "You have deleted a person");
     }
-
+    /** Shows all people */
     public void showPeople() {
         personSourse.showPeople().stream().map(member -> member.getFirstName().toString() + member.getLastName().toString()).forEach(System.out::println);
     }
