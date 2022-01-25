@@ -7,7 +7,11 @@ import com.geekhub.sources.PersonSourse;
 
 public class PersonService {
     private final PersonSourse personSourse = PersonSourse.getInstance();
-    MyLogger logger = new MyLogger();
+    private final MyLogger logger;
+
+    public PersonService(MyLogger logger) {
+        this.logger = logger;
+    }
 
     /** Creates a new person */
     public Person createPerson(String firstName, String lastName, String contacts, String email, String role) {

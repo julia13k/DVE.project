@@ -6,8 +6,12 @@ import com.geekhub.mylogger.*;
 import com.geekhub.sources.ResourseSource;
 
 public class ResourseService {
-    MyLogger logger = new MyLogger();
+    private final MyLogger logger;
     private final ResourseSource resourseSource1 = ResourseSource.getInstance();
+
+    public ResourseService(MyLogger logger) {
+        this.logger = logger;
+    }
 
     /** Creates a new resource */
     public Resourse createResourse(String name, String data, String typeString) {

@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class LectionService{
-    MyLogger logger = new MyLogger();
+    private final MyLogger logger;
 
     private Map<Lection, List<HomeWork>> homeworkByLectureList = new HashMap<>();
     private Map<Lection, List<Resourse>> resourceByLectureList = new HashMap<>();
@@ -24,6 +24,10 @@ public class LectionService{
     private final PersonSourse personSourse = PersonSourse.getInstance();
     private final ResourseSource resourseSource = ResourseSource.getInstance();
     private final HomeworkSource homeworkSource = HomeworkSource.getInstance();
+
+    public LectionService(MyLogger logger) {
+        this.logger = logger;
+    }
 
     /** Creates a new lecture */
     public Lection createLection(String name, String description) {

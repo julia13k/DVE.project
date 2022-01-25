@@ -7,7 +7,11 @@ import com.geekhub.sources.CourseSourse;
 
 public class CourseService {
     private final CourseSourse courseSourse = CourseSourse.getInstance();
-    MyLogger logger = new MyLogger();
+    private final MyLogger logger;
+
+    public CourseService(MyLogger logger) {
+        this.logger = logger;
+    }
 
     /** Creates a new course */
     public Course createCourse(String name) {

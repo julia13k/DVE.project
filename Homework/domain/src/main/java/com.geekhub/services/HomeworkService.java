@@ -9,8 +9,12 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class HomeworkService {
-    MyLogger logger = new MyLogger();
+    private final MyLogger logger;
     private final HomeworkSource homeworkSource = HomeworkSource.getInstance();
+
+    public HomeworkService(MyLogger logger) {
+        this.logger = logger;
+    }
 
     /** Creates a new homework */
     public HomeWork createHomework(String task, String deadline) {

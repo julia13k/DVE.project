@@ -17,11 +17,11 @@ public class ApplicationStarter {
     public static void main(String[] args) {
         ArgumentsScanner scanner = new ArgumentsScanner();
         MyLogger logger = new MyLogger();
-        CourseService courseService = new CourseService();
-        HomeworkService homeworkService = new HomeworkService();
-        LectionService lectionService = new LectionService();
-        PersonService personService = new PersonService();
-        ResourseService resourseService = new ResourseService();
+        CourseService courseService = new CourseService(logger);
+        HomeworkService homeworkService = new HomeworkService(logger);
+        LectionService lectionService = new LectionService(logger);
+        PersonService personService = new PersonService(logger);
+        ResourseService resourseService = new ResourseService(logger);
 
         MyLoggerMenu myLoggerMenu = new MyLoggerMenu(scanner, logger);
         CourseMenu courseMenu = new CourseMenu(courseService, scanner, logger);
