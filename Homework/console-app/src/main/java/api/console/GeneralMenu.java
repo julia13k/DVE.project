@@ -13,8 +13,8 @@ public class GeneralMenu {
     private final MyLoggerMenu myLoggerMenu;
     int option;
 
-    public GeneralMenu(ArgumentsScanner scanner, CourseService courseService, CourseMenu courseMenu, LectionMenu lectionMenu,
-                       PersonMenu personMenu, ResourseMenu resourseMenu, HomeworkMenu homeworkMenu, MyLoggerMenu myLoggerMenu) {
+    public GeneralMenu(ArgumentsScanner scanner, CourseMenu courseMenu, LectionMenu lectionMenu, PersonMenu personMenu,
+                       ResourseMenu resourseMenu, HomeworkMenu homeworkMenu, MyLoggerMenu myLoggerMenu) {
         this.scanner = scanner;
         this.courseMenu = courseMenu;
         this.lectionMenu = lectionMenu;

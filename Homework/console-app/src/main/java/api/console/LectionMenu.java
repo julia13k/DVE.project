@@ -2,6 +2,7 @@ package api.console;
 
 import com.geekhub.exceptions.*;
 import com.geekhub.mylogger.*;
+import com.geekhub.services.HomeworkService;
 import com.geekhub.services.LectionService;
 import com.geekhub.services.ResourseService;
 import com.geekhub.sources.HomeworkSource;
@@ -9,19 +10,17 @@ import com.geekhub.sources.ResourseSource;
 
 public class LectionMenu {
 
-    private final ResourseSource resourseSource;
-    private final HomeworkSource homeworkSource;
-    private final LectionService lectionService;
     private final ResourseService resourseService;
+    private final HomeworkService homeworkService;
+    private final LectionService lectionService;
     private final ArgumentsScanner scanner;
     private final MyLogger logger;
     int option;
 
-    public LectionMenu(ResourseSource resourseSource, HomeworkSource homeworkSource, LectionService lectionService, ResourseService resourseService, ArgumentsScanner scanner, MyLogger logger) {
-        this.resourseSource = resourseSource;
-        this.homeworkSource = homeworkSource;
-        this.lectionService = lectionService;
+    public LectionMenu(ResourseService resourseService, HomeworkService homeworkService, LectionService lectionService, ArgumentsScanner scanner, MyLogger logger) {
         this.resourseService = resourseService;
+        this.homeworkService = homeworkService;
+        this.lectionService = lectionService;
         this.scanner = scanner;
         this.logger = logger;
     }
@@ -92,7 +91,7 @@ public class LectionMenu {
                     lectionService.showLections();
                     System.out.println("Please enter the index of lecture where do you want to add homework(s):");
                     int lectureIndex = scanner.getNumber();
-                    homeworkSource.showHomeworks();
+                    homeworkService.showHomeworks();
                     System.out.println(
                         "Please enter the number of homeworks that you want to connect to a lecture:");
                     int homeworkIndex = scanner.getNumber();
@@ -103,7 +102,7 @@ public class LectionMenu {
                     lectionService.showLections();
                     System.out.println("Please enter the index of lecture where do you want to add resource(s):");
                     int lectionIndex = scanner.getNumber();
-                    resourseSource.showResourses();
+                    resourseService.showResources();
                     System.out.println(
                         "Please enter the number of homeworks that you want to connect to a lecture:");
                     int resourceIndex = scanner.getNumber();
