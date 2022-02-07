@@ -122,6 +122,7 @@ public class GeneralMenu {
         }
     }
 
+    /** Set the storage place of logs */
     public void setStorageType(String value) {
         FileInputStream fileInputStream;
         Properties property = new Properties();
@@ -136,6 +137,7 @@ public class GeneralMenu {
         }
     }
 
+    /** Get where user want to save logs */
     public void getStorageTypeFromUser() {
         System.out.println(new StringBuilder
                 ("Please enter the number of a storage that you have chosen for logs:\n")

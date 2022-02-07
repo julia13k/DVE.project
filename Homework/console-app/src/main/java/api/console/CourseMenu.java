@@ -24,7 +24,7 @@ public class CourseMenu {
     /** Prints all options of a course menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to course menu,")
-            .append("please, press ENTER to continue"));
+            .append("please, press ENTER to continue\n"));
         scanner.getLine();
 
         System.out.println(new StringBuilder

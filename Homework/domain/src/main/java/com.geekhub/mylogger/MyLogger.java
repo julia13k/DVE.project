@@ -172,6 +172,7 @@ public class MyLogger {
         }
     }
 
+    /** Get to notice about where the logs will be save */
     public String getStorageType() {
         Field[] fields = MyLogger.class.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
