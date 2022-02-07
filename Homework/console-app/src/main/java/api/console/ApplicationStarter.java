@@ -33,6 +33,7 @@ public class ApplicationStarter {
         GeneralMenu generalMenu = new GeneralMenu(
                 scanner, courseMenu, lectionMenu,personMenu, resourseMenu, homeworkMenu, myLoggerMenu);
         ApplicationStarter applicationStarter = new ApplicationStarter(generalMenu);
+        applicationStarter.generalMenu.getStorageTypeFromUser();
         applicationStarter.generalMenu.startGeneralMenu();
     }
 }

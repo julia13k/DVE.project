@@ -1,6 +1,9 @@
 package api.console;
 
-import com.geekhub.services.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 public class GeneralMenu {
 
@@ -116,6 +119,44 @@ public class GeneralMenu {
                     startWork();
                     break;
             }
+        }
+    }
+
+    public void setStorageType(String value) {
+        FileInputStream fileInputStream;
+        Properties property = new Properties();
+        try {
+            fileInputStream = new FileInputStream("Homework/domain/src/main/resources/application.properties");
+            property.load(fileInputStream);
+            property.setProperty("logger.storage.type", value);
+        } catch (FileNotFoundException ex) {
+            System.err.println("There is no file!");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void getStorageTypeFromUser() {
+        System.out.println(new StringBuilder
+                ("Please enter the number of a storage that you have chosen for logs:\n")
+                .append("1 - In file\n")
+                .append("2 - In memory\n")
+                .append("3 - Both in file and in memory\n"));
+        int option = scanner.getNumber();
+        switch (option) {
+            case 1:
+                setStorageType("file");
+                break;
+            case 2:
+                setStorageType("memory");
+                break;
+            case 3:
+                setStorageType("both");
+                break;
+            default:
+                System.out.println("Wrong input! Choose a number between 1-3");
+                getStorageTypeFromUser();
+                break;
         }
     }
 }
