@@ -1,5 +1,6 @@
 package api.console.web.servlets;
 
+import com.geekhub.models.ResourseType;
 import com.geekhub.services.ResourseService;
 
 import javax.servlet.ServletException;
@@ -52,7 +53,8 @@ public class ResourseMenuServlet extends HttpServlet {
         String name = extractResourceTask(req, "resource-name");
         String data = extractResourceTask(req, "data");
         String type = extractResourceTask(req, "type");
-        if(type.equals("BOOK") || type.equals("URL") || type.equals("VIDEO")) {
+        if(!type.equals(String.valueOf(ResourseType.BOOK)) && !type.equals(String.valueOf(ResourseType.URL))
+                && !type.equals(String.valueOf(ResourseType.VIDEO))) {
             throw new IllegalArgumentException("The role should be BOOK, URL or VIDEO!");
         }
         resourseService.createResourse(name, data, type);

@@ -17,7 +17,7 @@ public class ResourseService {
         if(!(typeString.equals(String.valueOf(ResourseType.BOOK)) &&
                 !typeString.equals(String.valueOf(ResourseType.URL)) &&
                 !typeString.equals(String.valueOf(ResourseType.VIDEO)))){
-            throw new ValidationException("");
+            throw new ValidationException("You have entered the wrong resource type!");
         }
 
         Resourse resourse = new Resourse(name, data, ResourseType.valueOf(typeString));

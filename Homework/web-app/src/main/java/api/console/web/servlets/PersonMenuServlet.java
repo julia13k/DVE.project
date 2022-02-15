@@ -56,7 +56,7 @@ public class PersonMenuServlet extends HttpServlet {
         String contacts = extractPersonParameter(req, "contacts");
         String email = extractPersonParameter(req, "email");
         String role = extractPersonParameter(req, "role");
-        if(!role.equals(String.valueOf(Role.TEACHER)) || !role.equals(String.valueOf(Role.STUDENT))) {
+        if(!role.equals(String.valueOf(Role.TEACHER)) && !role.equals(String.valueOf(Role.STUDENT))) {
             throw new InvalidArgumentException("The role should be TEACHER or STUDENT!");
         }
         personService.createPerson(firstname, lastname, contacts, email, role);
