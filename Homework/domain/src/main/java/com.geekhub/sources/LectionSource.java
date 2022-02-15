@@ -24,10 +24,8 @@ public class LectionSource {
         return lections.stream().sorted(Comparator.comparing(Lection::getCreationDate)).collect(Collectors.toList());
     }
 
-    public void showLections() {
-        for (int i = 0; i < lections.size(); i++) {
-            System.out.println(i + 1 + " " + lections.get(i));
-        }
+    public List<Lection> showLections() {
+        return lections;
     }
 
     public Lection get(int index) {

@@ -9,14 +9,9 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class HomeworkService {
-    private final MyLogger logger;
+    MyLogger logger = new MyLogger();
     private final HomeworkSource homeworkSource = HomeworkSource.getInstance();
 
-    public HomeworkService(MyLogger logger) {
-        this.logger = logger;
-    }
-
-    /** Creates a new homework */
     public HomeWork createHomework(String task, String deadline) {
         if (task.isBlank() || deadline.isBlank()) {
             throw new ValidationException("Validation exception!");
@@ -29,15 +24,16 @@ public class HomeworkService {
         logger.log(LoggerType.INFO, ResourseService.class, "You have added a new homework!");
         return homeWork;
     }
-    /** Gets new homework by index from sources  */
-    public void getHomework(int homeworkIndex) {
+
+    public HomeWork getHomework(int homeworkIndex) {
         try {
             homeworkSource.get(homeworkIndex);
         } catch (IndexOutOfBoundsException e) {
             logger.log(LoggerType.ERROR, e.getClass(), "Index out of bounds exception");
         }
+        return homeworkSource.get(homeworkIndex);
     }
-    /** Deletes a homework by index */
+
     public void deleteHomework(int homeworkIndex) {
         try {
             homeworkSource.delete(homeworkIndex);
@@ -46,9 +42,12 @@ public class HomeworkService {
         }
         logger.log(LoggerType.WARNING, ResourseService.class, "You have deleted a homework!");
     }
-    /** Shows all homeworks */
-    public void showHomeworks() {
-        homeworkSource.showHomeworks().stream().map(homeWork ->
-            homeWork.getTask().toString() + homeWork.getDeadline().toString()).forEach(System.out::println);
+
+    public String showHomeworks() {
+        String homeworks = new String("");
+        for (int i = 0; i < homeworkSource.showHomeworks().size(); i++) {
+            homeworks += homeworkSource.get(i + 1).getTask() +"\n";
+        }
+        return homeworks;
     }
 }

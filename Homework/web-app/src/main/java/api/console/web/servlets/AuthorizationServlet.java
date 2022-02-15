@@ -25,7 +25,7 @@ public class AuthorizationServlet extends HttpServlet {
 
         try (PrintWriter writer = resp.getWriter()) {
             String sessionId = session.getId();
-            writer.println("Welcome " + userName + "Your session id is " + sessionId);
+            writer.println("Welcome " + userName + ". Your session id is " + sessionId);
         }
     }
 }

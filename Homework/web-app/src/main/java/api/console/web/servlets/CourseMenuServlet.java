@@ -1,6 +1,8 @@
 package api.console.web.servlets;
 
+import com.geekhub.models.Course;
 import com.geekhub.services.CourseService;
+import filters.AuthorizationFilter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,35 +18,40 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
+import static javax.servlet.RequestDispatcher.ERROR_MESSAGE;
+import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
 
 @WebServlet(name = "CourseMenuServlet", urlPatterns = {"/course"})
 public class CourseMenuServlet extends HttpServlet {
-      private List<String> courses;
+    private CourseService courseService;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        this.courses = new ArrayList<>();
+        this.courseService = new CourseService();
     }
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
         try {
             super.service(req,res);
         } catch (AccessDeniedException e) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+            return;
         } catch (ServletException | IOException e) {
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong!");
+            return;
         } catch (IllegalArgumentException e) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return;
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String courseName = extractCourseName(req, "course-name");
+        int index = extractCourseIndex(req, "index");
         try(PrintWriter out = resp.getWriter()) {
-            out.print("<h2>" + courses.get(courses.indexOf(courseName)) + "</h2>");
+            out.println(courseService.getCourse(index).getName());
         }
         return;
     }
@@ -64,39 +71,36 @@ public class CourseMenuServlet extends HttpServlet {
         if(!Objects.equals(currentUserLogin, "admin")) {
             throw new AccessDeniedException("Access denied. Required access rights: 'admin'");
         }
-        String courseName = extractCourseName(req, "title");
-        if(courses.contains(courseName)) {
-            throw new IllegalArgumentException("There is a course with such a name already!");
-        }
-        courses.add(courseName);
-        printCourses(resp, courses);
+        String courseName = extractCourseName(req, "course-name");
+        courseService.createCourse(courseName);
+        printCourses(resp, courseService);
         return;
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        String currentUserLogin = (String) session.getAttribute("login");
+        String currentUserLogin = (String) session.getAttribute("user-name");
         if(!Objects.equals(currentUserLogin, "admin")) {
             throw new AccessDeniedException("Access denied. Required access rights: 'admin'");
         }
-        String courseName = extractCourseName(req, "title");
-        if(!courses.contains(courseName)) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "There is no such course!");
-            return;
-        }
-        courses.remove(courseName);
-        printCourses(resp, courses);
+        int index = extractCourseIndex(req, "index");
+        courseService.deleteCourse(index);
+        printCourses(resp, courseService);
         return;
     }
 
-    private void printCourses(HttpServletResponse resp, List<String> courses) throws IOException, IOException {
+    private void printCourses(HttpServletResponse resp, CourseService courseService) throws IOException {
         resp.setContentType("text/html");
-        try(PrintWriter out = resp.getWriter();) {
-            for (String cours : courses) {
-                out.print("<h2>" + cours + "</h2>");
-            }
+        try(PrintWriter out = resp.getWriter()) {
+            out.println(courseService.showCourses());
         }
+        return;
+    }
+
+    private static int extractCourseIndex(HttpServletRequest request, String parameter) throws IllegalArgumentException {
+        int value = Integer.parseInt(request.getParameter(parameter));
+        return value;
     }
 
     private static String extractCourseName(HttpServletRequest request, String parameter) throws IllegalArgumentException {
