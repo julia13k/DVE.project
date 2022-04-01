@@ -7,6 +7,7 @@ import java.util.Optional;
 public class HomeWork implements Serializable {
     private String task;
     private ZonedDateTime deadline;
+    private int id;
     private static final long serialVersionUID = 1L;
 
     public HomeWork(String task, ZonedDateTime deadline) {
@@ -29,4 +30,8 @@ public class HomeWork implements Serializable {
     public void setDeadline(ZonedDateTime deadline) {
         this.deadline = deadline;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }

@@ -6,6 +6,9 @@ public class ArgumentsScanner {
     private Scanner scanner = new Scanner(System.in);
 
     public Scanner getScanner() {
+        if(scanner == null) {
+            scanner = new Scanner(System.in);
+        }
         return scanner;
     }
 

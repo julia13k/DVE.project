@@ -1,12 +1,12 @@
 package api.console;
 
-import java.io.FileInputStream;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
 
 public class GeneralMenu {
-
+    ApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.geekhub.properties");
     private final ArgumentsScanner scanner;
     private final CourseMenu courseMenu;
     private final LectionMenu lectionMenu;
@@ -27,62 +27,29 @@ public class GeneralMenu {
         this.myLoggerMenu = myLoggerMenu;
     }
 
-    public ArgumentsScanner getScanner() {
-        return scanner;
-    }
-
-    public CourseMenu getCourseMenu() {
-        return courseMenu;
-    }
-
-    public LectionMenu getLectionMenu() {
-        return lectionMenu;
-    }
-
-    public PersonMenu getPersonMenu() {
-        return personMenu;
-    }
-
-    public ResourseMenu getResourseMenu() {
-        return resourseMenu;
-    }
-
-    public HomeworkMenu getHomeworkMenu() {
-        return homeworkMenu;
-    }
-
-    public MyLoggerMenu getMyLoggerMenu() {
-        return myLoggerMenu;
-    }
-
-    public int getOption() {
-        return option;
-    }
-
-    /** Main method for implementing application menu */
-    void startGeneralMenu() {
+    void startGeneralMenu() throws FileNotFoundException {
         printMenu();
         startWork();
     }
-    /** Prints all options of an application menu */
+
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to application menu,")
-            .append("please, press ENTER to continue"));
+                .append("please, press ENTER to continue"));
         scanner.getLine();
 
         System.out.println(new StringBuilder
-            ("\n1 - Course menu\n")
-            .append("2 - Lections menu\n")
-            .append("3 - Person menu\n")
-            .append("4 - Additional material menu\n")
-            .append("5 - Homework menu\n")
-            .append("6 - Logger menu\n")
-            .append("7 - Exit\n"));
+                ("\n1 - Course menu\n")
+                .append("2 - Lections menu\n")
+                .append("3 - Person menu\n")
+                .append("4 - Additional material menu\n")
+                .append("5 - Homework menu\n")
+                .append("6 - Logger menu\n")
+                .append("7 - Exit\n"));
     }
-    /** The implementation of an application menu options according to arguments received from scanner*/
-    private void startWork() {
+
+    private void startWork() throws FileNotFoundException {
         System.out.print(new StringBuilder("You are using general menu\n")
-            .append("Please enter the number you have chosen:\n"));
+                .append("Please enter the number you have chosen:\n"));
         option = scanner.getNumber();
         while (!(option == 7)) {
             switch (option) {
@@ -119,26 +86,13 @@ public class GeneralMenu {
                     startWork();
                     break;
             }
+            scanner.getScanner().close();
         }
     }
 
-    /** Set the storage place of logs */
-    public void setStorageType(String value) {
-        FileInputStream fileInputStream;
-        Properties property = new Properties();
-        try {
-            fileInputStream = new FileInputStream("Homework/domain/src/main/resources/application.properties");
-            property.load(fileInputStream);
-            property.setProperty("logger.storage.type", value);
-        } catch (FileNotFoundException ex) {
-            System.err.println("There is no file!");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    /** Get where user want to save logs */
     public void getStorageTypeFromUser() {
+        String storageType = "";
         System.out.println(new StringBuilder
                 ("Please enter the number of a storage that you have chosen for logs:\n")
                 .append("1 - In file\n")
@@ -147,18 +101,19 @@ public class GeneralMenu {
         int option = scanner.getNumber();
         switch (option) {
             case 1:
-                setStorageType("file");
+                storageType += "file";
                 break;
             case 2:
-                setStorageType("memory");
+                storageType += "memory";
                 break;
             case 3:
-                setStorageType("both");
+                storageType += "both";
                 break;
             default:
                 System.out.println("Wrong input! Choose a number between 1-3");
                 getStorageTypeFromUser();
                 break;
         }
+        myLoggerMenu.getLogger().setStorageType(storageType);
     }
 }

@@ -3,13 +3,13 @@ package com.geekhub.sources;
 import com.geekhub.models.HomeWork;
 import com.geekhub.models.Lection;
 import com.geekhub.models.Resourse;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository
 public class LectionSource {
-    private static LectionSource instance;
-
     private List<Lection> lections = new ArrayList<>();
 
     public Map<Optional<String>, List<HomeWork>> groupByHomework() {
@@ -29,9 +29,8 @@ public class LectionSource {
     }
 
     public Lection get(int index) {
-        int actualIndex = index - 1;
-        if (lections.size() >= actualIndex) {
-            return lections.get(actualIndex);
+        if (lections.size() >= index) {
+            return lections.get(index);
         }
 
         throw new IllegalArgumentException("Invalid params");
@@ -42,21 +41,9 @@ public class LectionSource {
     }
 
     public void delete(int lectionIndex) {
-        for (int i = 0; i < lections.size(); i++) {
-            Lection lection = lections.get(i);
-
-            if (Objects.nonNull(lections.get(lectionIndex))) {
-                lections.remove(lectionIndex - 1);
-            }
-        }
-    }
-
-    public static LectionSource getInstance() {
-        if (instance == null) {
-            instance = new LectionSource();
-            return instance;
-        } else {
-            return instance;
+        if (Objects.nonNull(lections.get(lectionIndex))) {
+            lections.remove(lectionIndex);
+            return;
         }
     }
 }

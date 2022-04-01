@@ -12,6 +12,7 @@ public class Lection implements Serializable {
     private List<Resourse> resources;
     private Person lecturer;
     private List<HomeWork> homeworks;
+    private int id;
     private static final long serialVersionUID = 1L;
 
     public Lection(String name, String description) {
@@ -57,4 +58,12 @@ public class Lection implements Serializable {
     public void setHomework(List<HomeWork> homeworks) {
         this.homeworks = homeworks;
     }
+
+    public void setResources(List<Resourse> resources) { this.resources = resources; }
+
+    public void setHomeworks(List<HomeWork> homeworks) { this.homeworks = homeworks; }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public class Course implements Serializable {
     private String name;
+    private int id;
     private List<Lection> lections;
     private List<Person> students;
     private static final long serialVersionUID = 1L;
@@ -17,6 +18,14 @@ public class Course implements Serializable {
         this.name = name;
         this.lections = lections;
         this.students = students;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Optional<String> getName() {

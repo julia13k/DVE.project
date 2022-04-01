@@ -7,6 +7,7 @@ public class Resourse implements Serializable {
     private String name;
     private ResourseType type;
     private String data;
+    private int id;
     private static final long serialVersionUID = 1L;
 
     public Resourse(String name, String data, ResourseType type) {
@@ -39,4 +40,7 @@ public class Resourse implements Serializable {
         this.data = data;
     }
 
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }

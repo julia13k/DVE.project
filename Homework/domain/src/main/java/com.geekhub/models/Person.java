@@ -9,6 +9,7 @@ public class Person implements Serializable {
     private String contacts;
     private String email;
     private Role role;
+    private int id;
     private static final long serialVersionUID = 1L;
 
     public Person(String firstName, String lastName, String contacts, String email, Role role) {
@@ -56,4 +57,8 @@ public class Person implements Serializable {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }

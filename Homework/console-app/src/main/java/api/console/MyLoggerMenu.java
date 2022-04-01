@@ -11,28 +11,35 @@ public class MyLoggerMenu {
         this.scanner = scanner;
         this.logger = logger;
     }
-    /** Main method for implementing logger menu */
+
+    public MyLogger getLogger() {
+        return logger;
+    }
+
     public void startLoggerMenu() {
+        if(!logger.getFile().exists()) {
+            logger.createFile();
+        }
         printMenu();
         startWork();
     }
-    /** Prints all options of a logger menu */
+
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to Logger menu,")
-            .append("please, press ENTER to continue\n"));
+                .append("please, press ENTER to continue\n"));
         scanner.getLine();
 
         System.out.println(new StringBuilder
-            ("1 - Show all logs\n")
-            .append("2 - Sort logs by date\n")
-            .append("3 - Select logs by status\n")
-            .append("4 - Exit\n"));
+                ("1 - Show all logs\n")
+                .append("2 - Sort logs by date\n")
+                .append("3 - Select logs by status\n")
+                .append("4 - Exit\n"));
     }
-    /** The implementation of a logger menu options according to arguments received from scanner*/
+
     private void startWork() {
         logger.readFromFile(logger.getFile());
         System.out.print(new StringBuilder("You are using Logger menu\n")
-            .append("Please enter the number you have chosen:\n"));
+                .append("Please enter the number you have chosen:\n"));
         option = scanner.getNumber();
         while (!(option == 4)) {
             switch (option) {
