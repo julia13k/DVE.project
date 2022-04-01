@@ -23,11 +23,13 @@ public class LectionMenu {
         this.logger = logger;
     }
 
+    /** Main method for implementing lecture menu */
     public void startLectionMenu() throws FileNotFoundException {
         printMenu();
         startWork();
     }
 
+    /** Gets lecture service */
     public LectionService getLectionService() {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
@@ -36,6 +38,7 @@ public class LectionMenu {
         return lectionService;
     }
 
+    /** Gets resource source */
     public ResourseSource getResourseSource() {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
@@ -44,6 +47,7 @@ public class LectionMenu {
         return resourseSource;
     }
 
+    /** Gets homework source */
     public HomeworkSource getHomeworkSource() {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
@@ -52,6 +56,7 @@ public class LectionMenu {
         return homeworkSource;
     }
 
+    /** Prints all options of a lecture menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to lecture menu,")
                 .append("please, press ENTER to continue"));
@@ -70,6 +75,7 @@ public class LectionMenu {
                 .append("10 - Exit\n"));
     }
 
+    /** The implementation of a lecture menu options according to arguments received from scanner*/
     private void startWork() throws FileNotFoundException {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);

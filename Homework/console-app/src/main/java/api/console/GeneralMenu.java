@@ -26,12 +26,14 @@ public class GeneralMenu {
         this.homeworkMenu = homeworkMenu;
         this.myLoggerMenu = myLoggerMenu;
     }
+    /** Main method for implementing application menu */
 
     void startGeneralMenu() throws FileNotFoundException {
         printMenu();
         startWork();
     }
 
+    /** Prints all options of an application menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to application menu,")
                 .append("please, press ENTER to continue"));
@@ -47,6 +49,7 @@ public class GeneralMenu {
                 .append("7 - Exit\n"));
     }
 
+    /** The implementation of an application menu options according to arguments received from scanner*/
     private void startWork() throws FileNotFoundException {
         System.out.print(new StringBuilder("You are using general menu\n")
                 .append("Please enter the number you have chosen:\n"));
@@ -90,7 +93,7 @@ public class GeneralMenu {
         }
     }
 
-
+    /** Get where user want to save logs */
     public void getStorageTypeFromUser() {
         String storageType = "";
         System.out.println(new StringBuilder

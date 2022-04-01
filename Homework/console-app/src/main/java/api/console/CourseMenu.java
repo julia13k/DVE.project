@@ -22,11 +22,13 @@ public class CourseMenu {
         this.logger = logger;
     }
 
+    /** Main method for implementing course menu */
     public void startCourseMenu() throws FileNotFoundException {
         printMenu();
         startWork();
     }
 
+    /** Prints all options of a course menu */
     public void printMenu() {
         System.out.print(new StringBuilder("Welcome to course menu,")
                 .append("please, press ENTER to continue"));
@@ -48,6 +50,7 @@ public class CourseMenu {
         return courseService;
     }
 
+    /** The implementation of a course menu options according to arguments received from scanner*/
     private void startWork() throws FileNotFoundException {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);

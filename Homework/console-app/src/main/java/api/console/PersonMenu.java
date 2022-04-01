@@ -21,11 +21,13 @@ public class PersonMenu {
         this.logger = logger;
     }
 
+    /** Main method for implementing person menu */
     public void startPersonMenu() throws FileNotFoundException {
         printMenu();
         startWork();
     }
 
+    /** Gets person service */
     public PersonService getPersonService() {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
@@ -34,6 +36,7 @@ public class PersonMenu {
         return personService;
     }
 
+    /** Prints all options of a person menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to person menu,")
                 .append("please, press ENTER to continue\n"));
@@ -47,6 +50,7 @@ public class PersonMenu {
                 .append("5 - Exit\n"));
     }
 
+    /** The implementation of a person menu options according to arguments received from scanner*/
     private void startWork() throws FileNotFoundException {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);

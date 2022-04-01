@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 public class ApplicationStarter {
     private final GeneralMenu generalMenu;
 
+    /** Application starter method */
     public ApplicationStarter(GeneralMenu generalMenu) {
         this.generalMenu = generalMenu;
     }

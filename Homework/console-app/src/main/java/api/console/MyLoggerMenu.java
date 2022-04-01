@@ -16,6 +16,7 @@ public class MyLoggerMenu {
         return logger;
     }
 
+    /** Main method for implementing logger menu */
     public void startLoggerMenu() {
         if(!logger.getFile().exists()) {
             logger.createFile();
@@ -24,6 +25,7 @@ public class MyLoggerMenu {
         startWork();
     }
 
+    /** Prints all options of a logger menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to Logger menu,")
                 .append("please, press ENTER to continue\n"));
@@ -36,6 +38,7 @@ public class MyLoggerMenu {
                 .append("4 - Exit\n"));
     }
 
+    /** The implementation of a logger menu options according to arguments received from scanner*/
     private void startWork() {
         logger.readFromFile(logger.getFile());
         System.out.print(new StringBuilder("You are using Logger menu\n")

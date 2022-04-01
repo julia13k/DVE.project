@@ -23,6 +23,7 @@ public class HomeworkMenu {
         this.logger = logger;
     }
 
+    /** Main method for implementing homework menu */
     public void startHomeworkMenu() {
         printMenu();
         try {
@@ -32,6 +33,7 @@ public class HomeworkMenu {
         }
     }
 
+    /** Prints all options of a homework menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to homework menu,")
                 .append("please, press ENTER to continue\n"));
@@ -44,7 +46,7 @@ public class HomeworkMenu {
                 .append("4 - Get a homework\n")
                 .append("5 - Exit\n"));
     }
-
+    /** Gets the homework service*/
     public HomeworkService getHomeworkService() {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
@@ -53,6 +55,7 @@ public class HomeworkMenu {
         return homeworkService;
     }
 
+    /** The implementation of a homework menu options according to arguments received from scanner*/
     private void startWork() throws FileNotFoundException {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);

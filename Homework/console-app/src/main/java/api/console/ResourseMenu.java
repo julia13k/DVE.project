@@ -23,11 +23,13 @@ public class ResourseMenu {
         this.logger = logger;
     }
 
+    /** Main method for implementing resource menu */
     public void startResourseMenu() throws FileNotFoundException {
         printMenu();
         startWork();
     }
 
+    /** Prints all options of a resource menu */
     private void printMenu() {
         System.out.print(new StringBuilder("Welcome to resourse menu,")
                 .append("please, press ENTER to continue"));
@@ -41,6 +43,7 @@ public class ResourseMenu {
                 .append("5 - Exit\n"));
     }
 
+    /** Gets resource service */
     public ResourseService getResourseService() {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
@@ -49,6 +52,7 @@ public class ResourseMenu {
         return resourseService;
     }
 
+    /** The implementation of a resource menu options according to arguments received from scanner*/
     private void startWork() throws FileNotFoundException {
         var applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(DatabaseConfig.class, AppConfig.class, ConsoleConfig.class);
