@@ -2,6 +2,7 @@ package api.console.web.servlets;
 
 import com.geekhub.config.AppConfig;
 import com.geekhub.config.DatabaseConfig;
+import com.geekhub.models.HomeWork;
 import com.geekhub.mylogger.LoggerType;
 import com.geekhub.mylogger.MyLogger;
 import com.geekhub.services.HomeworkService;
@@ -71,9 +72,12 @@ public class HomeworkMenuServlet extends HttpServlet {
         }
         String homeworkTask = extractHomeworkTask(req, "task");
         String deadline = extractHomeworkTask(req, "deadline");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss:SS");
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(deadline, formatter);
-        homeworkService.createHomework(homeworkTask, String.valueOf(zonedDateTime));
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        String pattern = "MM-dd-yyyy HH:mm:ss:SS";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        String format = zonedDateTime.plusDays(Long.parseLong(deadline)).format(formatter);
+        HomeWork homeWork = homeworkService.createHomework(homeworkTask, Integer.parseInt(deadline));
+        homeWork.setDeadline(format);
         printHomeworks(resp, homeworkService);
         return;
     }

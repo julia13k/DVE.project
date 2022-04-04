@@ -75,10 +75,10 @@ public class HomeworkMenu {
                     startHomeworkMenu();
                     break;
                 case 2:
-                    System.out.println("Please enter the task and deadline(in format 12-31-2021 15:30:59:904) :");
+                    System.out.println("Please enter the task and number of days for this work :");
                     scanner.getLine();
                     try {
-                        getHomeworkService().createHomework(scanner.getLine(), scanner.getLine());
+                        getHomeworkService().createHomework(scanner.getLine(), scanner.getNumber());
                     } catch (ValidationException e) {
                         logger.log(LoggerType.ERROR, e, "You have to type all the arguments");
                     } catch (FileNotFoundException e) {

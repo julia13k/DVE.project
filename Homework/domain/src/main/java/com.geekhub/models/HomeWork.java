@@ -6,13 +6,12 @@ import java.util.Optional;
 
 public class HomeWork implements Serializable {
     private String task;
-    private ZonedDateTime deadline;
+    private String deadline;
     private int id;
     private static final long serialVersionUID = 1L;
 
-    public HomeWork(String task, ZonedDateTime deadline) {
+    public HomeWork(String task) {
         this.task = task;
-        this.deadline = deadline;
     }
 
     public Optional<String> getTask() {
@@ -23,11 +22,11 @@ public class HomeWork implements Serializable {
         this.task = task;
     }
 
-    public Optional<ZonedDateTime> getDeadline() {
+    public Optional<String> getDeadline() {
         return Optional.ofNullable(deadline);
     }
 
-    public void setDeadline(ZonedDateTime deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 

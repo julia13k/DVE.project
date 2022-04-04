@@ -37,14 +37,15 @@ public class HomeworkService {
         this.homeworkSource = homeworkSource;
     }
 
-    public HomeWork createHomework(String task, String deadline) throws FileNotFoundException {
-        if (task.isBlank() || deadline.isBlank()) {
+    public HomeWork createHomework(String task, int deadline) throws FileNotFoundException {
+        if (task.isBlank()) {
             throw new ValidationException("Validation exception!");
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss:SS");
-
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(deadline, formatter);
-        HomeWork homeWork = new HomeWork(task, zonedDateTime);
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        String pattern = "MM-dd-yyyy HH:mm:ss:SS";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        String format = zonedDateTime.plusDays(deadline).format(formatter);
+        HomeWork homeWork = new HomeWork(task);
         homeworkSource.add(homeWork);
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 DatabaseConfig.class, AppConfig.class);
@@ -71,8 +72,7 @@ public class HomeworkService {
         int id = homeworkIndex;
         HomeWork homeWork = jdbcTemplate.queryForObject(GET_QUERY, Map.of("id", id), (rs, rowNum) ->
                 new HomeWork(
-                        rs.getString("task"),
-                        rs.getObject("deadline", ZonedDateTime.class)
+                        rs.getString("task")
                 )
         );
         return homeworkSource.get(homeworkIndex);
@@ -101,8 +101,7 @@ public class HomeworkService {
         NamedParameterJdbcTemplate jdbcTemplate = (NamedParameterJdbcTemplate) context.getBean("jdbcTemplate");
         List<HomeWork> list = jdbcTemplate.query(SHOW_ALL_QUERY, (rs, rowNum) -> {
             HomeWork homeWork = new HomeWork(
-                    rs.getString("task"),
-                    rs.getObject("deadline", ZonedDateTime.class));
+                    rs.getString("task"));
             homeWork.setId(rs.getInt("id"));
             return homeWork;
         });
@@ -118,7 +117,7 @@ public class HomeworkService {
         NamedParameterJdbcTemplate jdbcTemplate = (NamedParameterJdbcTemplate) context.getBean("jdbcTemplate");
         List<HomeWork> list = jdbcTemplate.query(SHOW_ALL_QUERY, (rs, rowNum) -> {
             HomeWork homeWork = new HomeWork(
-                    rs.getString("task"), rs.getObject("deadline", ZonedDateTime.class));
+                    rs.getString("task"));
             homeWork.setId(rs.getInt("id"));
             homeworkSource.add(homeWork);
             return homeWork;
