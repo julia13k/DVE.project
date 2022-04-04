@@ -8,7 +8,7 @@ import java.util.Optional;
 public class Lection implements Serializable {
     private String name;
     private String description;
-    private ZonedDateTime creationDate;
+    private String creationDate;
     private List<Resourse> resources;
     private Person lecturer;
     private List<HomeWork> homeworks;
@@ -35,9 +35,9 @@ public class Lection implements Serializable {
         this.description = description;
     }
 
-    public ZonedDateTime getCreationDate() {return creationDate; }
+    public String getCreationDate() {return creationDate; }
 
-    public void setCreationDate(ZonedDateTime creationDate) { this.creationDate = creationDate; }
+    public void setCreationDate(String creationDate) { this.creationDate = creationDate; }
 
     public List<Resourse> getResources() { return resources;}
 

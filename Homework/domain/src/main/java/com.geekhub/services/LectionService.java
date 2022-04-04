@@ -44,11 +44,12 @@ public class LectionService{
         if (name.isBlank() || description.isBlank()) {
             throw new ValidationException("You have to type the arguments of a lection!");
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss:SS");
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC+2"));
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(now, ZoneId.of("UTC+2"));
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        String pattern = "MM-dd-yyyy HH:mm:ss:SS";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        String format = zonedDateTime.format(formatter);
         Lection lection = new Lection(name, description);
-        lection.setCreationDate(zonedDateTime);
+        lection.setCreationDate(format);
         lection.setResource(new ArrayList<>());
         lectionSource.add(lection);
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
@@ -59,7 +60,7 @@ public class LectionService{
         params.put("id", id);
         params.put("title", name);
         params.put("description", description);
-        params.put("creationdate", zonedDateTime);
+        params.put("creationdate", format);
         jdbcTemplate.update(INSERT_QUERY, params);
         logger.log(LoggerType.INFO, lection, "You have created a new lection");
         return lection;

@@ -92,11 +92,12 @@ public class LectionMenuServlet extends HttpServlet {
         }
         String lectureName = extractLectureName(req, "lecture-name");
         String description = extractLectureName(req, "description");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss:SS");
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC+2"));
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(now, ZoneId.of("UTC+2"));
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        String pattern = "MM-dd-yyyy HH:mm:ss:SS";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        String format = zonedDateTime.format(formatter);
         Lection lection = lectionService.createLection(lectureName, description);
-        lection.setCreationDate(zonedDateTime);
+        lection.setCreationDate(format);
         printLectures(resp, lectionService);
         return;
     }
