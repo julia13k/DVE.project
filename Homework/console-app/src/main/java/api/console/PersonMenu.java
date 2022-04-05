@@ -3,6 +3,7 @@ package api.console;
 import com.geekhub.config.AppConfig;
 import com.geekhub.config.DatabaseConfig;
 import com.geekhub.exceptions.*;
+import com.geekhub.models.Person;
 import com.geekhub.mylogger.*;
 import com.geekhub.services.PersonService;
 import com.geekhub.sources.PersonSourse;
@@ -96,8 +97,8 @@ public class PersonMenu {
                     getPersonService().showPeople();
                     System.out.println("Please enter a number of a person you want to get:");
                     try {
-                        System.out.println(getPersonService().getPerson(scanner.getNumber()).getFirstName() + " " +
-                                getPersonService().getPerson(scanner.getNumber()).getLastName());
+                        Person person = getPersonService().getPerson(scanner.getNumber());
+                        System.out.println(person.getFirstName() + " " + person.getLastName());
                     } catch (Exception e) {
                         System.err.println("This method has failed!");
                         logger.log(LoggerType.ERROR, e, "This method is failed");}

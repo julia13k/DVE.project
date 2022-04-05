@@ -64,9 +64,8 @@ public class ResourseService {
     }
 
     public Resourse getResourse(int resourseIndex) throws FileNotFoundException {
-        Resourse resourse = null;
         try {
-            resourse = resourseSource.get(resourseIndex);
+            resourseSource.get(resourseIndex);
         } catch (IndexOutOfBoundsException e) {
             logger.log(LoggerType.ERROR, e.getClass(), "Index out of bounds exception");
         }
@@ -74,13 +73,11 @@ public class ResourseService {
                 DatabaseConfig.class, AppConfig.class);
         NamedParameterJdbcTemplate jdbcTemplate = (NamedParameterJdbcTemplate) context.getBean("jdbcTemplate");
         int id = resourseIndex;
-        Resourse resourse1 = jdbcTemplate.queryForObject(GET_QUERY, Map.of("id", id), (rs, rowNum) ->
+        Resourse resourse = jdbcTemplate.queryForObject(GET_QUERY, Map.of("id", id), (rs, rowNum) ->
                 new Resourse(
                         rs.getString("resourse_name"),
                         rs.getString("data"),
-                        (ResourseType) rs.getObject("type")
-                )
-        );
+                        ResourseType.valueOf(rs.getString("type"))));
         return resourse;
     }
 
@@ -109,7 +106,7 @@ public class ResourseService {
             Resourse resourse = new Resourse(
                     rs.getString("resourse_name"),
                     rs.getString("data"),
-                    (ResourseType) rs.getObject("type"));
+                    ResourseType.valueOf(rs.getString("type")));
             resourse.setId(rs.getInt("id"));
             return resourse;
         });
@@ -127,7 +124,7 @@ public class ResourseService {
             Resourse resourse = new Resourse(
                     rs.getString("resourse_name"),
                     rs.getString("data"),
-                    (ResourseType) rs.getObject("type"));
+                    ResourseType.valueOf(rs.getString("type")));
             resourse.setId(rs.getInt("id"));
             resourseSource.add(resourse);
             return resourse;

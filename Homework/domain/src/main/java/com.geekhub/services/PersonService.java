@@ -66,16 +66,13 @@ public class PersonService {
                 DatabaseConfig.class, AppConfig.class);
         NamedParameterJdbcTemplate jdbcTemplate = (NamedParameterJdbcTemplate) context.getBean("jdbcTemplate");
         int id = personIndex;
-        Person person = jdbcTemplate.queryForObject(GET_QUERY, Map.of("id", id), (rs, rowNum) ->
+        return jdbcTemplate.queryForObject(GET_QUERY, Map.of("id", id), (rs, rowNum) ->
                 new Person(
                         rs.getString("firstName"),
                         rs.getString("lastName"),
                         rs.getString("contacts"),
                         rs.getString("email"),
-                        (Role) rs.getObject("role")
-                )
-        );
-        return personSourse.get(personIndex);
+                        Role.valueOf(rs.getString("role"))));
     }
 
     public void deletePerson(int personIndex) throws FileNotFoundException {
@@ -105,7 +102,7 @@ public class PersonService {
                     rs.getString("lastName"),
                     rs.getString("contacts"),
                     rs.getString("email"),
-                    (Role) rs.getObject("role"));
+                    Role.valueOf(rs.getString("role")));
             person.setId(rs.getInt("id"));
             return person;
         });
@@ -125,7 +122,7 @@ public class PersonService {
                     rs.getString("lastName"),
                     rs.getString("contacts"),
                     rs.getString("email"),
-                    (Role) rs.getObject("role"));
+                    Role.valueOf(rs.getString("role")));
             person.setId(rs.getInt("id"));
             personSourse.add(person);
             return person;
